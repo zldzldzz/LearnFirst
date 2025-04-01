@@ -1,0 +1,55 @@
+	MOV AX, 257  [op reg16 num ] 3
+	MOV CX, 254  [op reg16 num ] 3
+	MOV BL, 10H  [op reg8 num ] 2
+
+	MOV AL, BL  [op reg8 reg8 ] 2
+	MOV BX, DX  [op reg16 reg16 ] 2
+
+L1: 	MOV AX, DATA1  [op reg16 sym ] 4
+	MOV BX, DATA2  [op reg16 sym ] 4
+
+	MOV    DATA1, AX  [op sym reg16 ] 3
+	MOV    DATA2, BX  [op sym reg16 ] 3
+	MOV    DATA3, AX  [op sym reg16 ] 3
+	MOV    DATA4, BX  [op sym reg16 ] 3
+
+	JA  L1  [op sym ] 2
+	JB  L2  [op sym ] 2
+
+	ADD AX, 257  [op reg16 num ] 3
+	ADD [CX], 16  [op sym num ] 3
+	ADD [BL], 10  [op sym num ] 3
+	ADD AX, [BX+SI]  [op reg16 reg16 ] 4
+
+	ADD DI, AX  [op reg16 reg16 ] 2
+	ADD BX, [DX]  [op reg16 sym ] 4
+
+L2: 	SUB AX, 257  [op reg16 num ] 3
+L3: 	SUB AX, BX  [op reg16 reg16 ] 2
+	SUB CX, AX  [op reg16 reg16 ] 2
+	CMP BX, DX  [op reg16 reg16 ] 2
+
+L4: 	SUB AX, DATA2  [op reg16 sym ] 4
+L5: 	SUB BX, DATA1  [op reg16 sym ] 4
+
+	MOV    DATA4, AX  [op sym reg16 ] 3
+	MOV    DATA3, BX  [op sym reg16 ] 3
+
+L6: 	SUB DATA2, AX  [op sym reg16 ] 3
+L7: 	SUB DATA1, BX  [op sym reg16 ] 3
+
+	JZ L3  [op sym ] 2
+	JA L4  [op sym ] 2
+	JB L5  [op sym ] 2
+	JAE L6  [op sym ] 2
+	JBE L7  [op sym ] 2
+
+	INC AX  [op reg16 ] 1
+	DEC DX  [op reg16 ] 1
+
+	INT 21H  [op num ] 2
+
+DATA1 DW 259  [sym pop num ] 2
+DATA2 DW 256  [sym pop num ] 2
+DATA3 DB 17  [sym pop num ] 1
+DATA4 DB 254  [sym pop num ] 1
